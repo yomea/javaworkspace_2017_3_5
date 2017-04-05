@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customer>
+	<first_name>John</first_name>
+	<last_name>Smith</last_name>
+	<age>32</age>
+	<phone>888.555.1234</phone>
+	<address>
+		<city>Plunk</city>
+		<nation>WA</nation>
+		<address_name>china zhejiang province hangzhou city xihu district
+			wenerxi road No 48</address_name>
+	</address>
+	<company>
+		<com_name>pubone</com_name>
+		<address>zhejiang university</address>
+	</company>
+	<company>
+		<com_name>jaoee</com_name>
+		<address>hongcheng techenologe</address>
+	</company>
+</customer>

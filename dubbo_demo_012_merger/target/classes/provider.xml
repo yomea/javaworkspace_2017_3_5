@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+ 
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="hello-world-app"  />
+ 
+    <dubbo:registry id="serviceRegister" address="zookeeper://127.0.0.1:2181"  />
+    	
+	 <dubbo:registry id="daoRegister" address="zookeeper://127.0.0.1:2182"  />
+    <!-- 用dubbo协议在20881端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20881" />
+    
+    <!-- 用hessian协议在20882端口暴露服务 -->
+    <dubbo:protocol name="hessian" port="20883" />
+ 
+    <!-- 声明需要暴露的服务接口,protocol="dubbo,hessian"启用这连个协议和端口 -->
+    <dubbo:service group="userServiceImpl_1" interface="com.dubbo.service.UserService" ref="userService_1" registry="serviceRegister,daoRegister" protocol="dubbo,hessian"/>
+    
+    <!-- 使用分组，以便区分，当然也可以使用version的方式区分 -->
+    <dubbo:service group="userServiceImpl_2" interface="com.dubbo.service.UserService" ref="userService_2" registry="serviceRegister,daoRegister" protocol="dubbo,hessian"/>
+    
+    <!-- 和本地bean一样实现服务 -->
+    <bean id="userService_1" class="com.dubbo.service.impl.UserServiceImpl_1" >
+    </bean>
+    
+     <bean id="userService_2" class="com.dubbo.service.impl.UserServiceImpl_2" >
+    </bean>
+ 
+</beans>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="testjibx" default="run"> 
+   <!--    
+         可以用绝对路径来表示：value="D:/Eclipse3.2/_Eclipse/zongheTest/testjibx" 
+         也可用相对路径来表示：value="."     此方式比较好，适合代码移位。 
+   --> 
+   <property name="prjBase" value="."/> 
+   <property name="src" value="${prjBase}/src"/> 
+   <property name="lib" value="${prjBase}/lib"/> 
+   <property name="classes" value="${prjBase}/classes"/> 
+    
+   <target name="clean"> 
+     <delete includeEmptyDirs="true"> 
+       <fileset dir="${classes}" includes="**/*" defaultexcludes="no"/> 
+     </delete>    
+   </target> 
+    
+   <target name="init"> 
+     <mkdir dir="${classes}"/> 
+   </target>    
+    
+   <target name="compile" depends="init,clean"     description="编译源代码"> 
+     <javac destdir="${classes}" verbose="false" debug="on" deprecation="true"> 
+       <src path="${src}" /> 
+       <classpath> 
+         <pathelement location="${lib}/bcel.jar"/> 
+         <pathelement location="${lib}/jibx-bind.jar"/> 
+         <pathelement location="${lib}/jibx-extras.jar"/> 
+         <pathelement location="${lib}/jibx-run.jar"/> 
+         <pathelement location="${lib}/xpp3.jar"/> 
+       </classpath> 
+     </javac> 
+     <copy todir="${classes}"> 
+       <fileset dir="${src}" excludes="**/*.java" /> 
+     </copy> 
+   </target> 
+    
+   <taskdef name="bind" classname="org.jibx.binding.ant.CompileTask" classpath="${lib}/jibx-bind.jar"/> 
+    
+   <target name="jibx-binding" depends="compile"> 
+     <bind verbose="false" load="true" binding="${classes}/binding.xml"> 
+       <classpath> 
+         <path location="${classes}"></path> 
+         <pathelement location="${lib}/jibx-bind.jar"/> 
+       </classpath> 
+     </bind> 
+   </target> 
+    
+   <target name="run" depends="jibx-binding" description="run"> 
+     <java classname="com.hch.testjibx.Test"> 
+       <classpath> 
+         <path location="${classes}"></path> 
+         <pathelement location="${lib}/bcel.jar"/> 
+         <pathelement location="${lib}/jibx-bind.jar"/> 
+         <pathelement location="${lib}/jibx-extras.jar"/> 
+         <pathelement location="${lib}/jibx-run.jar"/> 
+         <pathelement location="${lib}/xpp3.jar"/> 
+       </classpath> 
+     </java> 
+   </target> 
+    
+</project>

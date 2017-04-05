@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Implementation-Title: Hessian Lite(Alibaba embed version)
+Implementation-Version: 3.2.1-fixed-2
+Built-By: may
+Specification-Vendor: Alibaba
+Specification-Title: Hessian Lite(Alibaba embed version)
+Implementation-Vendor-Id: com.alibaba
+Build-Jdk: 1.8.0_101
+Specification-Version: 3.2.1-fixed-2
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Alibaba
+

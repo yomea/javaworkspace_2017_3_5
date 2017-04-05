@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="consumer-of-helloworld-app" />
+	
+	<!-- 延迟连接，在发生调用的时候进行连接，以减少连接数 -->
+	<dubbo:protocol name="dubbo" lazy="10"></dubbo:protocol>
+	
+	<!-- 粘滞连接，粘滞连接用于有状态服务，尽可能让客户端总是向同一提供者发起调用，除非该提供者挂了，再连另一台 -->
+	<!-- 粘滞连接将自动开启延迟连接，以减少长连接数 -->
+	<dubbo:protocol name="rmi" sticky="true" />
+	
+	<!-- 要链接多个注册中心，可以使用属性的方式，如果是集群就使用逗号分隔 -->
+	<dubbo:registry id="register" address="zookeeper://127.0.0.1:2181" />
+	
+	<!-- connections="10"如果是长连接，比如Dubbo协议，connections表示该服务对每个提供者建立的长连接数，换句话说就是最多可以连接10个提供者-->
+	<!-- executes="10"限制这个接口的每个方法最大执行线程不能超过10个，actives="10"限制最大的连接请求不超过10个。 -->
+	<dubbo:reference id="service" connections="10"
+		interface="com.dubbo.api.BarServiceMock" registry="register" actives="10" executes="10">
+	</dubbo:reference>
+	
+</beans>

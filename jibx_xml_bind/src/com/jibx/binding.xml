@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<binding>
+	<mapping name="customer" class="com.jibx.Customer">
+		<value name="first_name" field="firstName" />
+		<value name="last_name" field="lastName" />
+		<value name="age" field="age" />
+		<value name="phone" field="phone" />
+		<structure name="address" field="address">
+			<value name="city" field="city" />
+			<value name="nation" field="nation" />
+			<value name="address_name" field="addressName" />
+		</structure>
+		<collection field="companyList">
+			<structure name="company" type="com.jibx.Company">
+				<value name="com_name" field="comName" />
+				<value name="address" field="address" />
+			</structure>
+		</collection>
+	</mapping>
+</binding>
